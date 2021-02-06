@@ -4,7 +4,7 @@ from interface import menu
 
 # Sends the scores that have been sorted in a nice formatted way.
 def send():
-    sorted_scores = fileScores.retrieveScores()
+    sorted_scores = fileScores.retrieve_scores()
 
     textFormat.send_separator_message("SCORES DATA")
     print("Listed from your highest to lowest score")

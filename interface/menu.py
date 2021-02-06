@@ -12,7 +12,7 @@ def send_menu():
     menu_choice = menu.create_menu("MAIN MENU", "Chose an option below.", MENU_OPTIONS, False)
 
     if menu_choice == 1:
-        game.play(config)
+        game.play()
     elif menu_choice == 2:
         instructions.send()
     elif menu_choice == 3:
