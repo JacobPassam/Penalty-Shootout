@@ -1,10 +1,12 @@
+from pathlib import Path
+
 class Config:
 
     def __init__(self):
 
         # Default configuration options
         self.config = {
-            "Rounds": [4, []],
+            "Rounds": [5, []],
             "Notifications": ["true", ["true", "false"]],
             "SaveScores": ["true", ["true", "false"]],
             "options": ["Rounds", "Notifications", "SaveScores"]
