@@ -8,25 +8,35 @@ import random
 
 PLAYER_OPTIONS = ["left", "centre", "right"]
 
-def get_random_option():
-    return PLAYER_OPTIONS[random.randint(0, len(PLAYER_OPTIONS)-1)]
 
+# Generates random option in PLAYER_OPTIONS
+def get_random_option():
+    return PLAYER_OPTIONS[random.randint(0, len(PLAYER_OPTIONS) - 1)]
+
+
+# Activates the game
 def play():
+    # Retrieves configuration
     config_obj = config.Config()
     config_obj.load_config()
 
+    # Temp score ready
     temp_scores_obj = temp_scores.Scores()
 
+    # Sets configuration options as variables.
     rounds = int(config_obj.get_config("Rounds")[0])
-    notifications = config_obj.get_config("Notifications")[0]
     save_scores = config_obj.get_config("SaveScores")[0]
+
+    # Sets default set_notifications variable for tips.
     sent_notification = False
 
+    # Loops through each round
     for i in range(rounds):
+        # Creates option menu
         chosen_option = menu.create_word_menu("GAME", "Choose your option", PLAYER_OPTIONS, False)
         if chosen_option != "menu":
             computer_option = get_random_option()
-
+            # Prints out who won
             if computer_option == chosen_option:
                 temp_scores_obj.add_score("keeper_score")
                 print("Oh no! The keeper caught the ball.")
@@ -34,7 +44,8 @@ def play():
                 temp_scores_obj.add_score("player_score")
                 print("Well done, you scored!")
 
-            if notifications == "true" and sent_notification == False:
+            # Sends impossibility notification
+            if not sent_notification:
                 temp_scores_obj.calculate_impossibility()
                 sent_notification = True
         else:
@@ -43,6 +54,7 @@ def play():
     player_score = temp_scores_obj.get_score("player_score")
     keeper_score = temp_scores_obj.get_score("keeper_score")
 
+    # Saves the score if set to do so
     if save_scores == "true":
         result = fileScores.save_scores(player_score, keeper_score)
         if result:
@@ -53,6 +65,7 @@ def play():
     winner, difference = temp_scores_obj.get_winner()
     textFormat.send_separator_message("RESULTS")
 
+    # Shows the overall winner
     if winner == "keeper":
         print("[END] Oh no! You lost by " + str(difference) + " point(s)!")
     elif winner == "player":
@@ -62,4 +75,5 @@ def play():
 
     print("[END] Final Score (Player -> Keeper): \n" + (str(player_score) + " <-> " + str(keeper_score)).center(18))
 
+    # Returns back to menu
     menu_interface.send_menu()

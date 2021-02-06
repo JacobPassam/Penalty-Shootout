@@ -18,6 +18,7 @@ class Scores:
     def get_score(self, user):
         return self.scores[user]
 
+    # Calculates the winner of the round via the self.scores settings.
     def get_winner(self):
         if self.scores["keeper_score"] > self.scores["player_score"]:
             return "keeper", self.scores["keeper_score"]-self.scores["player_score"]

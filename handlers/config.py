@@ -36,6 +36,7 @@ class Config:
         self.__save_config()
         return
 
+    # Saves the configuration set in self.config
     def __save_config(self):
         try:
             file = open('files/config.txt', "w")

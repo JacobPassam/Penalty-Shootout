@@ -18,6 +18,7 @@ def retrieve_scores():
     return sorted_scores
 
 
+# Saves the scores to points.txt in a format as "PLAYER,KEEPER,\n"
 def save_scores(player_score, keeper_score):
     try:
         file = open('files/points.txt', "a")
@@ -28,8 +29,7 @@ def save_scores(player_score, keeper_score):
         return False
 
 
-# Sorts the scores via lambda
+# Sorts the scores via lambda sequence.
 def format_scores(scores):
     sorted_scores = sorted(scores, key=lambda us: us[0], reverse=True)
-
     return sorted_scores

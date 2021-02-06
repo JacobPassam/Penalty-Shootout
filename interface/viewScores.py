@@ -2,6 +2,7 @@ from handlers import fileScores
 from interface import textFormat
 from interface import menu
 
+
 # Sends the scores that have been sorted in a nice formatted way.
 def send():
     sorted_scores = fileScores.retrieve_scores()

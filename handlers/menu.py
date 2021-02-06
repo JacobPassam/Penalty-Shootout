@@ -1,6 +1,7 @@
-from interface import  textFormat
+from interface import textFormat
 from handlers import validation
 from interface import menu
+
 
 # Creates a new menu to be used throughout the code
 def create_menu(title, description, options, back_menu):
@@ -8,13 +9,13 @@ def create_menu(title, description, options, back_menu):
     textFormat.send_separator_message(title)
     print(description)
     for i in range(len(options)):
-        print(str(i+1) + ") " + options[i])
+        print(str(i + 1) + ") " + options[i])
 
     # The ability to go back to menu (optional)
     back_index = 0
     if back_menu:
-        back_index = len(options)+1
-        print(str(len(options)+1) + ") Go back to main menu")
+        back_index = len(options) + 1
+        print(str(len(options) + 1) + ") Go back to main menu")
     print()
 
     # Validate input
@@ -23,7 +24,7 @@ def create_menu(title, description, options, back_menu):
 
     while not validated:
         choice = input("Choose your option: ")
-        valid = validation.validate_integer(choice, 1, len(options)+1)
+        valid = validation.validate_integer(choice, 1, len(options) + 1)
         if not valid:
             validation.validation_err()
         else:
@@ -44,7 +45,7 @@ def create_word_menu(title, description, options, back_menu):
 
     if not options == []:
         for i in range(len(options)):
-            print("- " +  options[i])
+            print("- " + options[i])
     else:
         print("- Reply with a number (0-100)")
 
