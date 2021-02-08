@@ -1,14 +1,13 @@
 from interface import textFormat
 from handlers import validation
-from handlers import config as configHandler
-from interface import menu
+
 
 # Creates a new menu to be used throughout the code
-def create_menu(title, description, options, back_menu, config_obj: configHandler):
+def create_menu(title, description, options, back_menu):
     # Print menu
     textFormat.send_separator_message(title)
     print(description)
-    for i in range(len(options)):
+    for i in range(0, len(options)):
         print(str(i + 1) + ") " + options[i])
 
     # The ability to go back to menu (optional)
@@ -24,21 +23,22 @@ def create_menu(title, description, options, back_menu, config_obj: configHandle
 
     while not validated:
         choice = input("Choose your option: ")
-        valid = validation.validate_integer(choice, 1, len(options) + 1)
+        valid = None
+        if back_index != 0:
+            valid = validation.validate_integer(choice, 1, back_index)
+        else:
+            valid = validation.validate_integer(choice, 1, len(options))
         if not valid:
             validation.validation_err()
         else:
             choice = int(choice)
             validated = True
-            if back_index != 0 and choice == back_index:
-                menu.send_menu(config_obj)
-                return
 
     return choice
 
 
 # Custom menu that accepts word reply's - for configuration editing mainly.
-def create_word_menu(title, description, options, back_menu, config_obj: configHandler):
+def create_word_menu(title, description, options, back_menu):
     # Print menu
     textFormat.send_separator_message(title)
     print(description)
@@ -50,7 +50,7 @@ def create_word_menu(title, description, options, back_menu, config_obj: configH
         print("- Reply with a number (0-100)")
 
     if back_menu:
-        print("- Menu")
+        print("- menu")
     print()
 
     # Validate input
@@ -61,10 +61,7 @@ def create_word_menu(title, description, options, back_menu, config_obj: configH
         choice = input("Choose your option: ").lower()
 
         if choice.lower() == "menu":
-            validated = True
-            choice = "menu"
-            menu.send_menu(config_obj)
-            return
+            return "menu"
         else:
             if options == []:
                 valid = validation.validate_integer(choice, 1, 100)

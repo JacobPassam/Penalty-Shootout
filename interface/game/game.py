@@ -4,7 +4,6 @@ from handlers import scores as temp_scores
 from handlers import menu
 from handlers import config as configHandler
 from interface import textFormat
-from interface import menu as menu_interface
 import random
 
 PLAYER_OPTIONS = ["left", "centre", "right"]
@@ -27,7 +26,7 @@ def play(config_obj: configHandler):
     # Loops through each round
     for i in range(rounds):
         # Creates option menu
-        chosen_option = menu.create_word_menu("GAME", "Choose your option", PLAYER_OPTIONS, False, configHandler)
+        chosen_option = menu.create_word_menu("GAME", "Choose your option", PLAYER_OPTIONS, False)
         if chosen_option != "menu":
             computer_option = get_random_option()
             # Prints out who won
@@ -68,4 +67,4 @@ def play(config_obj: configHandler):
     print("[END] Final Score (Player -> Keeper): \n" + (str(player_score) + " <-> " + str(keeper_score)).center(18))
 
     # Returns back to menu
-    menu_interface.send_menu(config_obj)
+    return

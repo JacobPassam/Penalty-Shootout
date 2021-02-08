@@ -9,18 +9,18 @@ MENU_OPTIONS = ["Play the game", "Read instructions", "View all scores", "Edit C
 
 
 # Sends the default menu
-def send_menu(config_obj: configHandler):
-    menu_choice = menu.create_menu("MAIN MENU", "Chose an option below.", MENU_OPTIONS, False, config_obj)
+def activate_menu(config_obj: configHandler):
+    menu_choice = menu.create_menu("MAIN MENU", "Chose an option below.", MENU_OPTIONS, False)
 
     if menu_choice == 1:
         game.play(config_obj)
     elif menu_choice == 2:
-        instructions.send(config_obj)
+        instructions.send()
     elif menu_choice == 3:
-        viewScores.send(config_obj)
+        viewScores.send()
     elif menu_choice == 4:
         config.send_menu(config_obj)
     elif menu_choice == 5:
         config.show_current(config_obj)
-    else:
-        send_menu(config_obj)
+
+    activate_menu(config_obj)

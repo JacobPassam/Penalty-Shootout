@@ -4,4 +4,4 @@ from handlers import config
 configHandler = config.Config()
 configHandler.load_config()
 
-menu.send_menu(configHandler)
+menu.activate_menu(configHandler)
