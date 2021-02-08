@@ -28,9 +28,7 @@ class Scores:
             return "draw", 0
 
     # Calculates the impossibility (used under notification setting)
-    def calculate_impossibility(self):
-        config_obj = config.Config()
-        config_obj.load_config()
+    def calculate_impossibility(self, config_obj):
         result = config_obj.get_config("Notifications")[0]
         rounds = int(config_obj.get_config("Rounds")[0])
         if result == "true":

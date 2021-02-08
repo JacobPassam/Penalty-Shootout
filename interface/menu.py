@@ -1,6 +1,7 @@
 from handlers import menu
 from interface import instructions
 from interface import config
+from handlers import config as configHandler
 from interface import viewScores
 from interface.game import game
 
@@ -8,18 +9,18 @@ MENU_OPTIONS = ["Play the game", "Read instructions", "View all scores", "Edit C
 
 
 # Sends the default menu
-def send_menu():
-    menu_choice = menu.create_menu("MAIN MENU", "Chose an option below.", MENU_OPTIONS, False)
+def send_menu(config_obj: configHandler):
+    menu_choice = menu.create_menu("MAIN MENU", "Chose an option below.", MENU_OPTIONS, False, config_obj)
 
     if menu_choice == 1:
-        game.play()
+        game.play(config_obj)
     elif menu_choice == 2:
-        instructions.send()
+        instructions.send(config_obj)
     elif menu_choice == 3:
-        viewScores.send()
+        viewScores.send(config_obj)
     elif menu_choice == 4:
-        config.send_menu()
+        config.send_menu(config_obj)
     elif menu_choice == 5:
-        config.show_current()
+        config.show_current(config_obj)
     else:
-        send_menu()
+        send_menu(config_obj)

@@ -4,7 +4,7 @@ from interface import menu
 
 
 # Creates a new menu to be used throughout the code
-def create_menu(title, description, options, back_menu):
+def create_menu(title, description, options, back_menu, config_obj):
     # Print menu
     textFormat.send_separator_message(title)
     print(description)
@@ -31,14 +31,14 @@ def create_menu(title, description, options, back_menu):
             choice = int(choice)
             validated = True
             if back_index != 0 and choice == back_index:
-                menu.send_menu()
+                menu.send_menu(config_obj)
                 return
 
     return choice
 
 
 # Custom menu that accepts word reply's - for configuration editing mainly.
-def create_word_menu(title, description, options, back_menu):
+def create_word_menu(title, description, options, back_menu, config_obj):
     # Print menu
     textFormat.send_separator_message(title)
     print(description)

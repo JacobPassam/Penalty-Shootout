@@ -2,6 +2,7 @@ from handlers import config
 from handlers import fileScores
 from handlers import scores as temp_scores
 from handlers import menu
+from handlers import config as configHandler
 from interface import textFormat
 from interface import menu as menu_interface
 import random
@@ -15,11 +16,7 @@ def get_random_option():
 
 
 # Activates the game
-def play():
-    # Retrieves configuration
-    config_obj = config.Config()
-    config_obj.load_config()
-
+def play(config_obj: configHandler):
     # Temp score ready
     temp_scores_obj = temp_scores.Scores()
 
@@ -28,12 +25,11 @@ def play():
     save_scores = config_obj.get_config("SaveScores")[0]
 
     # Sets default set_notifications variable for tips.
-    sent_notification = False
 
     # Loops through each round
     for i in range(rounds):
         # Creates option menu
-        chosen_option = menu.create_word_menu("GAME", "Choose your option", PLAYER_OPTIONS, False)
+        chosen_option = menu.create_word_menu("GAME", "Choose your option", PLAYER_OPTIONS, False, configHandler)
         if chosen_option != "menu":
             computer_option = get_random_option()
             # Prints out who won
@@ -45,9 +41,7 @@ def play():
                 print("Well done, you scored!")
 
             # Sends impossibility notification
-            if not sent_notification:
-                temp_scores_obj.calculate_impossibility()
-                sent_notification = True
+            temp_scores_obj.calculate_impossibility(config_obj)
         else:
             return
 
@@ -76,4 +70,4 @@ def play():
     print("[END] Final Score (Player -> Keeper): \n" + (str(player_score) + " <-> " + str(keeper_score)).center(18))
 
     # Returns back to menu
-    menu_interface.send_menu()
+    menu_interface.send_menu(config_obj)
