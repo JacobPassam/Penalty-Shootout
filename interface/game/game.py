@@ -24,8 +24,6 @@ def play(config_obj: configHandler):
     rounds = int(config_obj.get_config("Rounds")[0])
     save_scores = config_obj.get_config("SaveScores")[0]
 
-    # Sets default set_notifications variable for tips.
-
     # Loops through each round
     for i in range(rounds):
         # Creates option menu

@@ -1,10 +1,10 @@
 from interface import textFormat
 from handlers import validation
+from handlers import config as configHandler
 from interface import menu
 
-
 # Creates a new menu to be used throughout the code
-def create_menu(title, description, options, back_menu, config_obj):
+def create_menu(title, description, options, back_menu, config_obj: configHandler):
     # Print menu
     textFormat.send_separator_message(title)
     print(description)
@@ -38,7 +38,7 @@ def create_menu(title, description, options, back_menu, config_obj):
 
 
 # Custom menu that accepts word reply's - for configuration editing mainly.
-def create_word_menu(title, description, options, back_menu, config_obj):
+def create_word_menu(title, description, options, back_menu, config_obj: configHandler):
     # Print menu
     textFormat.send_separator_message(title)
     print(description)
@@ -63,7 +63,7 @@ def create_word_menu(title, description, options, back_menu, config_obj):
         if choice.lower() == "menu":
             validated = True
             choice = "menu"
-            menu.send_menu()
+            menu.send_menu(config_obj)
             return
         else:
             if options == []:

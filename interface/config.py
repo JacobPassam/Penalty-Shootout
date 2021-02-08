@@ -2,7 +2,6 @@ from handlers import menu
 from handlers import config as configHandler
 from interface import menu as menu_interface
 from interface import textFormat
-from handlers import config
 
 
 # Sends the configuration menu as well as displaying the inner menus, making use of handlers/menu.py
@@ -21,8 +20,6 @@ def send_menu(config_obj: configHandler):
 
 # Shows the current configuration settings.
 def show_current(config_obj: configHandler):
-    config_obj = config.Config()
-
     menu_options = config_obj.get_config("options")
     textFormat.send_separator_message("CURRENT CONFIG")
     for i in range(len(menu_options)):
