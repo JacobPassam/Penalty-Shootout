@@ -22,7 +22,7 @@ def send_menu(config_obj: configHandler):
 # Shows the current configuration settings.
 def show_current(config_obj: configHandler):
     config_obj = config.Config()
-    config_obj.load_config()
+
     menu_options = config_obj.get_config("options")
     textFormat.send_separator_message("CURRENT CONFIG")
     for i in range(len(menu_options)):
