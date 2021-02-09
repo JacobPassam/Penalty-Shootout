@@ -1,13 +1,13 @@
 from interface import text_format
-
+from handlers.config import Config as configHandler
 
 class Points:
 
-    def __int__(self):
-
+    def __init__(self, config: configHandler):
+        self.config = config
         self.scores = {
             "player": 0,
-            "Keeper": 0
+            "keeper": 0
         }
 
     def get_score(self, player):
@@ -28,7 +28,7 @@ class Points:
     # Calculates the impossibility (used under notification setting)
     def calculate_impossibility(self):
         result = self.config.retrieve_config("Notifications")
-        rounds = self.config.retrieve_config("Rounds")
+        rounds = int(self.config.retrieve_config("Rounds"))
         if result:
             if (self.scores["keeper"]/2)-int(self.scores["keeper"]/2) == 0:
                 if self.scores["keeper"] >= ((rounds/2) + 1):

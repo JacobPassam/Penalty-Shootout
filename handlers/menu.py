@@ -47,7 +47,8 @@ def create_string_menu(title, display_options, back_menu):
                                 return output
                 except:
                     validated = False
-        return None
+        else:
+            return None
         validation.validation_err()
 
 

@@ -9,7 +9,7 @@ OPTIONS = ["left", "centre", "right"]
 
 
 def generate_keeper_option():
-    return OPTIONS[random.randint(0, len(OPTIONS)-1)]
+    return OPTIONS[random.randint(0, len(OPTIONS) - 1)]
 
 
 def play(config):
@@ -22,7 +22,7 @@ def play(config):
     points_client.calculate_impossibility()
 
     for i in range(int(rounds)):
-        response = menu.create_string_menu("GAME - ROUND: " + (str(i+1)), OPTIONS, False)
+        response = menu.create_string_menu("GAME - ROUND: " + (str(i + 1)), OPTIONS, False)
         keeper_option = generate_keeper_option()
 
         if response == keeper_option:
@@ -42,8 +42,8 @@ def play(config):
         print("Well done! You've won by " + str(difference_score) + " point(s)!")
     else:
         print("Congratulations, it was a draw!")
-        print("FINAL RESULTS: (Player -> Keeper)\n" + (str(points_client.get_score("player")) + " <-> " +
-              str(points_client.get_score("keeper"))).center(18))
+    print("FINAL RESULTS: (Player -> Keeper)\n" + (str(points_client.get_score("player")) + " <-> " +
+                                                   str(points_client.get_score("keeper"))).center(18))
     if save_scores:
         points_data.save_score(points_client.get_score('player'), points_client.get_score('keeper'))
     return
