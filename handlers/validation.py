@@ -3,7 +3,7 @@ def validate_to_int(string):
     try:
         integer = int(string)
         return True, integer
-    except ValueError:
+    except:
         return False, False
 
 
@@ -16,7 +16,7 @@ def validate_to_bool(string):
             return True, True
         else:
             return False, False
-    except ValueError:
+    except:
         return False, False
 
 

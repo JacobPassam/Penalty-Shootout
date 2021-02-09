@@ -2,6 +2,6 @@ from handlers import config
 from interface import main_menu
 
 configHandler = config.Config()
-configHandler.load_config()
+configHandler.startup()
 
-main_menu.activate_menu(config)
+main_menu.activate_menu(configHandler)

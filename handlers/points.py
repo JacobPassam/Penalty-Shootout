@@ -1,15 +1,17 @@
-from handlers.config import Config as configHandler
 from interface import text_format
 
 
 class Points:
 
-    def __int__(self, config: configHandler):
-        self.config = config
+    def __int__(self):
+
         self.scores = {
             "player": 0,
-            "keeper": 0
+            "Keeper": 0
         }
+
+    def get_score(self, player):
+        return self.scores[player]
 
     def add_score(self, player):
         self.scores[player] += 1

@@ -14,6 +14,7 @@ def edit_menu(config: configHandler):
     if not response: return
 
     config.update_config(selected_choice, response)
+    return
 
 
 def send(config: configHandler):

@@ -22,10 +22,10 @@ def format_scores(scores):
     return sorted_scores
 
 
-def save_score(self):
+def save_score(player_score, keeper_score):
     try:
         file = open('files/points.txt', "a")
-        file.write(str(self.scores["player"]) + "," + str(self.scores["keeper"]) + ",\n")
+        file.write(player_score + "," + str(keeper_score) + ",\n")
         file.close()
         return True
     except:
