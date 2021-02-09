@@ -1,7 +1,7 @@
-from interface import menu
 from handlers import config
+from interface import main_menu
 
 configHandler = config.Config()
 configHandler.load_config()
 
-menu.activate_menu(configHandler)
+main_menu.activate_menu(config)

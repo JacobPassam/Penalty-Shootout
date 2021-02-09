@@ -1,4 +1,3 @@
-# Default message separators so everything is the same throughout the code.
 def send_separator_message(message):
     print("=======> " + message + " <=======")
 

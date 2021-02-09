@@ -1,80 +1,56 @@
-from interface import textFormat
 from handlers import validation
+from interface import text_format
 
 
-# Creates a new menu to be used throughout the code
-def create_menu(title, description, options, back_menu):
-    # Print menu
-    textFormat.send_separator_message(title)
-    print(description)
-    for i in range(0, len(options)):
-        print(str(i + 1) + ") " + options[i])
-
-    # The ability to go back to menu (optional)
-    back_index = 0
-    if back_menu:
-        back_index = len(options) + 1
-        print(str(len(options) + 1) + ") Go back to main menu")
-    print()
-
-    # Validate input
-    validated = False
-    choice = 0
-
-    while not validated:
-        choice = input("Choose your option: ")
-        valid = None
-        if back_index != 0:
-            valid = validation.validate_integer(choice, 1, back_index)
-        else:
-            valid = validation.validate_integer(choice, 1, len(options))
-        if not valid:
-            validation.validation_err()
-        else:
-            choice = int(choice)
-            validated = True
-
-    return choice
-
-
-# Custom menu that accepts word reply's - for configuration editing mainly.
-def create_word_menu(title, description, options, back_menu):
-    # Print menu
-    textFormat.send_separator_message(title)
-    print(description)
-
-    if not options == []:
-        for i in range(len(options)):
-            print("- " + options[i])
+def create_string_menu(title, display_options, back_menu):
+    text_format.send_separator_message(title)
+    # Detect integer range type
+    success, output = validation.validate_to_int(display_options[0])
+    if success:
+        print("- Reply with an integer between " + str(display_options[0] + " & " + str(display_options[1])))
     else:
-        print("- Reply with a number (0-100)")
+        for i in range(len(display_options)):
+            print("- " + display_options[i])
 
     if back_menu:
-        print("- menu")
-    print()
+        print("- Menu")
 
-    # Validate input
     validated = False
-    choice = ""
-
     while not validated:
-        choice = input("Choose your option: ").lower()
-
-        if choice.lower() == "menu":
-            return "menu"
+        response = input("Enter your response: ").lower()
+        if not response == "menu":
+            if response in display_options:
+                index = display_options.index(response)
+                return display_options[index]
+            elif success:
+                success, output = validation.validate_to_int(response)
+                if success:
+                    if display_options[0] <= output <= display_options[1]:
+                        return output
         else:
-            if options == []:
-                valid = validation.validate_integer(choice, 1, 100)
-                if not valid:
-                    validation.validation_err()
-                else:
-                    choice = choice.lower()
-                    validated = True
-            else:
-                if choice.lower() in options:
-                    choice = choice.lower()
-                    validated = True
-                else:
-                    validation.validation_err()
+            return
 
-    return choice
+        validation.validation_err()
+
+
+def create_int_menu(title, display_options, back_menu):
+    text_format.send_separator_message(title)
+    for i in range(len(display_options)):
+        print(str(i+1) + ") " + display_options[i])
+
+    if back_menu:
+        print(str(len(display_options)+1) + ") Back to menu")
+
+    validated = False
+    while not validated:
+        response = input("Enter your response: ").lower()
+        success, output = validation.validate_to_int(response)
+        if success:
+            if back_menu:
+                if 1 <= output <= len(display_options)+1:
+                    return output
+            else:
+                if 1 <= output <= len(display_options):
+                    return output
+
+        validation.validation_err()

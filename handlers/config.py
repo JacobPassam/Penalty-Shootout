@@ -1,16 +1,16 @@
+from handlers import validation
+
 class Config:
 
     def __init__(self):
 
-        # Default configuration options
+        # Default configuration settings [current, [valid_options]]
         self.config = {
-            "Rounds": [5, []],
-            "Notifications": ["true", ["true", "false"]],
-            "SaveScores": ["true", ["true", "false"]],
-            "options": ["Rounds", "Notifications", "SaveScores"]
+            "Rounds": [5, [1, 100]],
+            "Notifications": [True, [True, False]],
+            "SaveScores": [True, [True, False]]
         }
 
-    # Loads configuration via files when required. (For the game)
     def load_config(self):
         try:
             file = open('files/config.txt', "r")
@@ -19,33 +19,54 @@ class Config:
 
             for i in range(len(split)):
                 if not split[i] == "":
-                    option = self.config["options"][i]
+                    option = self.retrieve_config_list()[i]
                     self.config[option][0] = split[i]
             file.close()
         except:
             file = open('files/config.txt', "x")
             file.close()
 
-    # Gets a particular configuration setting.
-    def get_config(self, key):
-        return self.config[key]
-
-    # Updates the config value and saves it via the private __save_config function
     def update_config(self, key, value):
-        self.config[key][0] = value
-        self.__save_config()
-        return
+        success, output = validation.validate_to_bool(value)
+        if success:
+            self.config[key] = output
+            self.__save_config()
+            return True
+        else:
+            success, output = validation.validate_to_int(value)
+            if success:
+                self.config[key] = output
+                self.__save_config()
+                return True
+        return False
 
-    # Saves the configuration set in self.config
     def __save_config(self):
         try:
             file = open('files/config.txt', "w")
-            formatted_string = ""
-            for i in range(len(self.config["options"])):
-                formatted_string += str(self.config[self.config["options"][i]][0]) + ","
-            file.write(formatted_string)
+            formatted_str = ""
+            options = self.retrieve_config_list()
+
+            for i in range(len(list(options))):
+                value = self.config[options[i]][0]
+                if value == True or value == False:
+                    success, output = validation.bool_to_string(value)
+                    if success:
+                        formatted_str += output + ","
+                else:
+                    success, output = validation.int_to_string(value)
+                    if success:
+                        formatted_str += output + ","
+
+            file.write(formatted_str)
             file.close()
         except:
             return False
 
+    def retrieve_config_list(self):
+        return list(self.config.keys())
 
+    def retrieve_config(self, key):
+        return self.config[key][0]
+
+    def retrieve_config_options(self, key):
+        return self.config[key][1]

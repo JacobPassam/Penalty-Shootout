@@ -1,15 +1,40 @@
-# Validates an integer from a string, checking its minimum and maximum value allowed.
-def validate_integer(integer, minimum, maximum):
+# Format return: success, output (int)
+def validate_to_int(string):
     try:
-        number = int(integer)
-        if minimum <= number <= maximum:
-            return True
-        else:
-            return False
+        integer = int(string)
+        return True, integer
     except ValueError:
+        return False, False
+
+
+# Format return: success, output
+def validate_to_bool(string):
+    try:
+        if string.lower() == "false":
+            return True, False
+        elif string.lower() == "true":
+            return True, True
+        else:
+            return False, False
+    except ValueError:
+        return False, False
+
+
+def bool_to_string(bool):
+    try:
+        if bool:
+            return True, "True"
+        elif not bool:
+            return True, "False"
+        else:
+            return False, False
+    except:
         return False
 
 
-# Used to print out one line of text to ensure everything is the same throughout the code.
+def int_to_string(int):
+    return True, str(int)
+
+
 def validation_err():
     print("[VALIDATION] Error")

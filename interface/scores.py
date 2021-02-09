@@ -1,12 +1,11 @@
-from handlers import fileScores
-from interface import textFormat
+from handlers import points_data
+from interface import text_format
 
 
-# Sends the scores that have been sorted in a nice formatted way.
 def send():
-    sorted_scores = fileScores.retrieve_scores()
+    sorted_scores = points_data.retrieve_scores()
 
-    textFormat.send_separator_message("SCORES DATA")
+    text_format.send_separator_message("SCORES DATA")
     print("Listed from your highest to lowest score")
     print("PLAYER <--> KEEPER")
 

@@ -1,29 +1,24 @@
+from handlers.config import Config as configHandler
+from interface import text_format
 from handlers import menu
-from handlers import config as configHandler
-from interface import textFormat
 
 
-# Sends the configuration menu as well as displaying the inner menus, making use of handlers/menu.py
-def send_menu(config_obj: configHandler):
-    menu_options = config_obj.get_config("options")
+def edit_menu(config: configHandler):
+    menu_options = config.retrieve_config_list()
+    response = menu.create_int_menu("CONFIG MENU", menu_options, True)
+    if not response: return
 
-    menu_choice = menu.create_menu("CONFIG MENU", "Chose an option below.", menu_options, True)
-    if not menu_choice:
-        return
+    selected_choice = menu_options[response-1]
 
-    if menu_choice <= len(menu_options):
-        inner_option_name = menu_options[menu_choice-1]
-        inner_options = config_obj.get_config(menu_options[menu_choice-1])[1]
-        menu_inner_choice = menu.create_word_menu("CONFIG INNER MENU", "Chose an option below.", inner_options, True)
-        if menu_inner_choice != "menu" and menu_inner_choice != None:
-            config_obj.update_config(inner_option_name, menu_inner_choice)
-    return
+    response = menu.create_string_menu("INNER CONFIG MENU", config.retrieve_config_options(selected_choice), True)
+    if not response: return
+
+    config.update_config(selected_choice, response)
 
 
-# Shows the current configuration settings.
-def show_current(config_obj: configHandler):
-    menu_options = config_obj.get_config("options")
-    textFormat.send_separator_message("CURRENT CONFIG")
+def send(config: configHandler):
+    menu_options = config.retrieve_config_list()
+    text_format.send_separator_message("CURRENT CONFIG")
     for i in range(len(menu_options)):
-        print(menu_options[i] + " > " + str(config_obj.get_config(menu_options[i])[0]))
+        print(menu_options[i] + " > " + str(config.retrieve_config(menu_options[i])))
     return
