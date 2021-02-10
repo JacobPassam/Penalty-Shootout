@@ -1,5 +1,5 @@
 # Retrieves all the formatted scores. and appends to an array.
-def retrieve_scores():
+def retrieve_scores(opt):
     file = open('files/points.txt', "r")
     finished = False
 
@@ -13,14 +13,20 @@ def retrieve_scores():
         else:
             finished = True
 
-    sorted_scores = format_scores(scores)
+    sorted_scores = format_scores(scores, opt)
 
     return sorted_scores
 
 
 # Returns formatted scores via lambda.
-def format_scores(scores):
-    sorted_scores = sorted(scores, key=lambda us: us[0], reverse=True)
+def format_scores(scores, opt):
+    reverse_opt = False
+    if opt == "ascending":
+        reverse_opt = False
+    elif opt == "descending":
+        reverse_opt = True
+
+    sorted_scores = sorted(scores, key=lambda us: us[0], reverse=reverse_opt)
     return sorted_scores
 
 
