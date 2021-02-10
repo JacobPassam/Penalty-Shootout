@@ -68,7 +68,7 @@ def create_string_menu(title, display_options, back_menu):
 
 
 def create_int_menu(title, display_options, back_menu):
-    # Sends default seperator messaged
+    # Sends default separator messaged
     text_format.send_separator_message(title)
     # Loops through all options and prints out.
     for i in range(len(display_options)):
@@ -83,7 +83,7 @@ def create_int_menu(title, display_options, back_menu):
         # Validates response
         response = input("Enter your response: ").lower()
 
-        # Attempts to change responsei into integer
+        # Attempts to change response into integer
         success, output = validation.validate_to_int(response)
         if success:
             if back_menu:

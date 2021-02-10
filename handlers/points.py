@@ -1,6 +1,7 @@
 from interface import text_format
 from handlers.config import Config as configHandler
 
+
 class Points:
 
     def __init__(self, config: configHandler):
