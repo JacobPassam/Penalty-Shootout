@@ -22,5 +22,5 @@ def send():
 
     # Prints out in format PLAYER SCORE <-> KEEPER SCORE.
     for i in range(len(sorted_scores)):
-        print((sorted_scores[i][0] + " <-> " + sorted_scores[i][1]).center(18))
+        print((str(sorted_scores[i][0]) + " <-> " + str(sorted_scores[i][1])).center(18))
     return

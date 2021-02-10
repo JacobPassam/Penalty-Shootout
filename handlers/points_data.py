@@ -9,7 +9,7 @@ def retrieve_scores(opt):
         line = file.readline()
         if not line == "":
             split = line.split(",")
-            scores.append([split[0], split[1]])
+            scores.append([int(split[0]), int(split[1])])
         else:
             finished = True
 
