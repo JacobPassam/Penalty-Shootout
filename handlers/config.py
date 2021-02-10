@@ -12,6 +12,7 @@ class Config:
             "SaveScores": [[True], [True, False]]
         }
 
+    # Sets configuration stored in file to the current object.
     def startup(self):
         try:
             file = open('files/config.txt', "r")
@@ -27,6 +28,7 @@ class Config:
             file = open('files/config.txt', "x")
             file.close()
 
+    # Saves the configuration stored in the self object.
     def __save_config(self):
         file = open('files/config.txt', "w")
         formatted_str = ""
@@ -45,6 +47,7 @@ class Config:
         file.write(formatted_str)
         file.close()
 
+    # Updates the configuration and saves it to the file.
     def update_config(self, key, value):
         success, output = validation.validate_to_bool(value)
         if success:
@@ -59,12 +62,14 @@ class Config:
                 return True
         return False
 
+    # Retrieves the configuration list of all the kay names in the directory
     def retrieve_config_list(self):
         return list(self.config.keys())
 
+    # Retrieves the value of a configuration option.
     def retrieve_config(self, key):
         return self.config[key][0][0]
 
+    # Retrieves the different options a user can choose to set a configuration option (e.g. true, false)
     def retrieve_config_options(self, key):
         return self.config[key][1]
-

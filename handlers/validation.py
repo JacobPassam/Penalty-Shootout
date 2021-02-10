@@ -20,8 +20,10 @@ def validate_to_bool(string):
         return False, False
 
 
+# Format return: success, output
 def bool_to_string(bool):
     try:
+        # Anything can be true/false, so integer is checked first manually.
         if bool:
             return True, "True"
         elif not bool:
@@ -32,6 +34,7 @@ def bool_to_string(bool):
         return False
 
 
+# Format return: success, output
 def int_to_string(int):
     return True, str(int)
 

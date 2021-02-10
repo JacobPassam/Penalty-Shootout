@@ -2,6 +2,7 @@ from interface import text_format
 
 
 def send():
+    # Prints out instructions.
     text_format.send_separator_message("INSTRUCTIONS")
     print("1 - Choose your option (left, centre, right)")
     print("2 - If the keeper chooses the same option, they win a point.")

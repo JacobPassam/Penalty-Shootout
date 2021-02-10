@@ -1,3 +1,5 @@
+# Default formatting functions: Global
+
 def send_separator_message(message):
     print("=======> " + message + " <=======")
 

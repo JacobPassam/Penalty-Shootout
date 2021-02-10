@@ -10,9 +10,11 @@ class Points:
             "keeper": 0
         }
 
+    # Retrieves the score for the player
     def get_score(self, player):
         return self.scores[player]
 
+    # Adds a score to a player (+1)
     def add_score(self, player):
         self.scores[player] += 1
 

@@ -11,6 +11,7 @@ OPTIONS = ["Play the game", "Read instructions", "View all scores", "Edit Config
 def activate_menu(config: configHandler):
     response = menu.create_int_menu("MAIN MENU", OPTIONS, False)
 
+    # Detects response and activates functions dependant on the outcome.
     if response == 1:
         game.play(config)
     elif response == 2:
@@ -22,6 +23,7 @@ def activate_menu(config: configHandler):
     elif response == 5:
         config_menu.send(config)
 
+    # Reactivates menu at the end of session.
     activate_menu(config)
 
 
